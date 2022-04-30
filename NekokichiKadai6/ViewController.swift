@@ -22,21 +22,21 @@ final class ViewController: UIViewController {
     }
 
     @IBAction func checkAnswerButton(_ sender: UIButton) {
+        var alert = UIAlertController()
         var alertMessage: String {
             if Int(answerNumberLabel.text ?? "") ?? 0 == Int(slider.value) {
-                return "あたり！\nあなたの値：\(Int(slider.value))"
+                return alert.rightAnswerMessage + "\(Int(slider.value))"
             } else {
-                return "はずれ！\nあなたの値：\(Int(slider.value))"
+                return alert.wrongAnswerMessage + "\(Int(slider.value))"
             }
         }
-        let alert: UIAlertController = UIAlertController(title: "結果", message: alertMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "再挑戦", style: .cancel, handler: { _ in
+        alert = UIAlertController(title: alert.alertTitle, message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: alert.actionTitle, style: .cancel, handler: { _ in
             self.answerNumberLabel.text = "\(arc4random_uniform(100))"
             self.slider.reset()
         }))
         present(alert, animated: true, completion: nil)
     }
-
 }
 
 private extension UISlider {
@@ -47,5 +47,20 @@ private extension UISlider {
 
     func reset() {
         self.value = 50.0
+    }
+}
+
+private extension UIAlertController {
+    var alertTitle: String {
+        "結果"
+    }
+    var actionTitle: String {
+        "再挑戦"
+    }
+    var rightAnswerMessage: String {
+        "あたり！\nあなたの値："
+    }
+    var wrongAnswerMessage: String {
+        "はずれ！\nあなたの値："
     }
 }
