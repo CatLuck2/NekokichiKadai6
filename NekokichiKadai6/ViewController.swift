@@ -17,9 +17,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         answerNumberLabel.text = "\(arc4random_uniform(100))"
-        slider.maximumValue = 100.0
-        slider.minimumValue = 0.0
-        slider.value = 50.0
+        slider.setUp()
+        slider.reset()
     }
 
     @IBAction func checkAnswerButton(_ sender: UIButton) {
@@ -33,9 +32,20 @@ class ViewController: UIViewController {
         let alert: UIAlertController = UIAlertController(title: "結果", message: alertMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "再挑戦", style: .cancel, handler: { _ in
             self.answerNumberLabel.text = "\(arc4random_uniform(100))"
-            self.slider.value = 50.0
+            self.slider.reset()
         }))
         present(alert, animated: true, completion: nil)
     }
 
+}
+
+extension UISlider {
+    func setUp() {
+        self.maximumValue = 100.0
+        self.minimumValue = 0.0
+    }
+
+    func reset() {
+        self.value = 50.0
+    }
 }
