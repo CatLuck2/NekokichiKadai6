@@ -34,7 +34,7 @@
                                     <constraint firstAttribute="width" secondItem="KsM-pw-S4i" secondAttribute="height" multiplier="67:31" id="R57-gN-wkj"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="判定！"/>
                                 <connections>
                                     <action selector="checkAnswerButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EAc-K6-Mgh"/>
                                 </connections>
