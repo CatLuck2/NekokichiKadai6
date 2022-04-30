@@ -7,11 +7,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
-    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak private var slider: UISlider!
 
-    @IBOutlet weak var answerNumberLabel: UILabel!
+    @IBOutlet weak private var answerNumberLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
 
 }
 
-extension UISlider {
+private extension UISlider {
     func setUp() {
         self.maximumValue = 100.0
         self.minimumValue = 0.0
