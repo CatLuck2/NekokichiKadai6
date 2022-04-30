@@ -16,7 +16,7 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        answerNumberLabel.text = "\(arc4random_uniform(100))"
+        answerNumberLabel.text = String(arc4random_uniform(100))
         slider.setUp()
         slider.reset()
     }
@@ -25,14 +25,14 @@ final class ViewController: UIViewController {
         var alert = UIAlertController()
         var alertMessage: String {
             if Int(answerNumberLabel.text ?? "") ?? 0 == Int(slider.value) {
-                return alert.rightAnswerMessage + "\(Int(slider.value))"
+                return alert.rightAnswerMessage + String(Int(slider.value))
             } else {
-                return alert.wrongAnswerMessage + "\(Int(slider.value))"
+                return alert.wrongAnswerMessage + String(Int(slider.value))
             }
         }
         alert = UIAlertController(title: alert.alertTitle, message: alertMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: alert.actionTitle, style: .cancel, handler: { _ in
-            self.answerNumberLabel.text = "\(arc4random_uniform(100))"
+            self.answerNumberLabel.text = String(arc4random_uniform(100))
             self.slider.reset()
         }))
         present(alert, animated: true, completion: nil)
