@@ -19,58 +19,38 @@ final class ViewController: UIViewController {
     @IBOutlet weak private var slider: UISlider!
     @IBOutlet weak private var answerNumberLabel: UILabel!
 
+    private var correctAnswer = Int.random(in: 1...100)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // 初期設定
-        answerNumberLabel.text = String(arc4random_uniform(100))
-        slider.setUp()
-        slider.reset()
+        answerNumberLabel.text = String(correctAnswer)
+        setupSlider()
     }
 
     @IBAction func checkAnswerButton(_ sender: UIButton) {
-        // extensionのプロパティを使用するために定義
-        var alert = UIAlertController()
-        var alertMessage: String {
-            if Int(answerNumberLabel.text ?? "") ?? 0 == Int(slider.value) {
-                return alert.rightAnswerMessage + String(Int(slider.value))
-            } else {
-                return alert.wrongAnswerMessage + String(Int(slider.value))
-            }
+        let alertMessage: String
+        if correctAnswer == Int(slider.value) {
+            alertMessage = "あたり！\nあなたの値：" + String(Int(slider.value))
+        } else {
+            alertMessage = "はずれ！\nあなたの値：" + String(Int(slider.value))
         }
-        alert = UIAlertController(title: alert.alertTitle, message: alertMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: alert.actionTitle, style: .cancel, handler: { _ in
-            self.answerNumberLabel.text = String(arc4random_uniform(100))
-            self.slider.reset()
+        let alert = UIAlertController(title: "結果", message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "再挑戦", style: .cancel, handler: { _ in
+            self.answerNumberLabel.text = String(Int.random(in: 1...100))
+            self.resetSlider()
         }))
         present(alert, animated: true, completion: nil)
     }
-}
 
-// スライダーのリテラルを防ぐため
-private extension UISlider {
-    func setUp() {
-        self.maximumValue = 100.0
-        self.minimumValue = 0.0
+    private func setupSlider() {
+        slider.maximumValue = 100.0
+        slider.minimumValue = 0.0
+        slider.value = 50.0
     }
 
-    func reset() {
-        self.value = 50.0
-    }
-}
-
-// 文字列のリテラルを防ぐため
-private extension UIAlertController {
-    var alertTitle: String {
-        "結果"
-    }
-    var actionTitle: String {
-        "再挑戦"
-    }
-    var rightAnswerMessage: String {
-        "あたり！\nあなたの値："
-    }
-    var wrongAnswerMessage: String {
-        "はずれ！\nあなたの値："
+    private func resetSlider() {
+        slider.value = 50.0
     }
 }
