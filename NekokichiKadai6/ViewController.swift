@@ -9,18 +9,26 @@ import UIKit
 
 final class ViewController: UIViewController {
 
+    struct AnswerMessage {
+        let right = "あたり!\nあなたの値:"
+        let wrong = "はずれ!\nあなたの値:"
+    }
+
     @IBOutlet weak private var slider: UISlider!
     @IBOutlet weak private var answerNumberLabel: UILabel!
     private var answerNumber = Int.random(in: 1...100)
 
     @IBAction func checkAnswerButton(_ sender: UIButton) {
         let sliderValue = Int(slider.value)
+        let message: String
 
         if sliderValue == answerNumber {
-            showAlert(message: "あたり!\nあなたの値:\(sliderValue)")
+            message = AnswerMessage().right + "\(sliderValue)"
         } else {
-            showAlert(message: "はずれ!\nあなたの値:\(sliderValue)")
+            message = AnswerMessage().wrong + "\(sliderValue)"
         }
+
+        showAlert(message: message)
     }
 
     override func viewDidLoad() {
