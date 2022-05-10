@@ -7,6 +7,13 @@
 
 import UIKit
 
+final class RandomNumberGenerator {
+    var number = Int.random(in: 1...100)
+    func regenerate() {
+        number = Int.random(in: 1...100)
+    }
+}
+
 final class ViewController: UIViewController {
 
     struct AnswerMessage {
@@ -16,7 +23,7 @@ final class ViewController: UIViewController {
 
     @IBOutlet weak private var slider: UISlider!
     @IBOutlet weak private var answerNumberLabel: UILabel!
-    private var answerNumber = Int.random(in: 1...100)
+    private var answerNumber = RandomNumberGenerator().number
 
     @IBAction func checkAnswerButton(_ sender: UIButton) {
         let sliderValue = Int(slider.value)
@@ -38,7 +45,7 @@ final class ViewController: UIViewController {
     private func showAlert(message: String) {
         let alertController = UIAlertController(title: "結果", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-            self.answerNumber = Int.random(in: 1...100)
+            self.answerNumber = RandomNumberGenerator().number
             self.answerNumberLabel.text = "\(self.answerNumber)"
         }))
         present(alertController, animated: true, completion: nil)
